@@ -18,7 +18,6 @@ PDA::PDA(string inputFileName) {
 
 void PDA::readFile(string inputFileName) {
   ifstream file(inputFileName);
-  string numeral = "#";
   string lineInfo;
 
   if (!file.is_open()) {
@@ -29,13 +28,36 @@ void PDA::readFile(string inputFileName) {
 
     // Comments control
     getline(file, lineInfo);
-    size_t found = lineInfo.find(numeral);
-    while (found != string::npos) {
+    while (lineInfo.front() == '#') {
       getline(file, lineInfo);
-      found = lineInfo.find(numeral);
     }
+
+    // Set of states
+    string token;
+    stringstream state(lineInfo);
+    while (getline(state, token, ' ')) {
+      cout << "Estado: " << token << endl;
+    }
+    
+    // PDA Alphabet
+    getline(file, lineInfo);
+    stringstream symbol(lineInfo);
+    while (getline(symbol, token, ' ')) {
+      cout << "Símbolo alfabeto PDA: " << token << endl;
+    }
+
+    // Stack Alphabet
+    getline(file, lineInfo);
+    stringstream stackSymbol(lineInfo);
+    while (getline(stackSymbol, token, ' ')) {
+      cout << "Símbolo alfabeto pila: " << token << endl;
+    }
+
+    
+
   }
   /*ifstream file;
+
   file.open(inputFile);
   if (!file.is_open()) {
     cout << "Error opening file" << endl;
