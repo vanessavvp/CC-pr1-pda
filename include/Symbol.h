@@ -5,7 +5,7 @@
  * Contact: alu0101265704@ull.edu.es
  * @date: 18/10/2021
  * Subject: Complejidad Computacional
- * Practice: Numberº1
+ * Practice: Number º1
  * Purpose: Implementing a Pushdown Automata
  */
 
