@@ -16,16 +16,23 @@ Symbol::Symbol(string symbol) {
 }
 
 
-string Symbol::getValue() {
+string Symbol::getSymbol() {
   return symbol_;
 }
 
 
-void Symbol::setValue(string symbol) {
+void Symbol::setSymbol(string symbol) {
   symbol_ = symbol;
 }
 
 
 void Symbol::print() {
   cout << "Symbol: " << symbol_ << endl;
+}
+
+
+bool Symbol::operator<(Symbol const& other) const {
+  if (other.symbol_ < this->symbol_) 
+    return true;
+  return false;
 }

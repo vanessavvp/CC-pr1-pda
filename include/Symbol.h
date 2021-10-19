@@ -20,9 +20,10 @@ using namespace std;
 class Symbol {
   public:
     Symbol(string symbol);
-    string getValue();
-    void setValue(string symbol);
+    string getSymbol();
+    void setSymbol(string symbol);
     void print();
+    bool operator<(Symbol const& other) const;
     
   private:
     string symbol_;

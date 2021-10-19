@@ -3,7 +3,7 @@
  * @file Alphabet.h
  * @author: Vanessa Valentina Villalba Perez
  * Contact: alu0101265704@ull.edu.es
- * @date: 18/10/2021
+ * @date: 19/10/2021
  * Subject: Complejidad Computacional
  * Practice: Number º1
  * Purpose: Implementing a Pushdown Automata
@@ -21,7 +21,15 @@ using namespace std;
 
 class Alphabet {
   public:
+    Alphabet(set<Symbol>& symbols);
+    void setAlphabet(set<Symbol>& symbols);
+    set<Symbol> getAlphabet() const;
+    void addSymbol(Symbol& symbol);
+    int getSize() const;
+    void printAlphabet();
+
   private:
+    set<Symbol> alphabet_;
 
 };
 

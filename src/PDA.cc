@@ -42,17 +42,21 @@ void PDA::readFile(string inputFileName) {
     // PDA Alphabet
     getline(file, lineInfo);
     stringstream symbol(lineInfo);
+    set<Symbol> symbols;
     while (getline(symbol, token, ' ')) {
       Symbol PDASymbol(token);
-      cout << "Símbolo alfabeto PDA: " << PDASymbol.getValue() << endl;
+      cout << "Símbolo alfabeto PDA: " << PDASymbol.getSymbol() << endl;
+      symbols.insert(PDASymbol);
     }
+    Alphabet PDAAlphabet(symbols);
+    PDAAlphabet.printAlphabet();
 
     // Stack Alphabet
     getline(file, lineInfo);
     stringstream stackSymbol(lineInfo);
     while (getline(stackSymbol, token, ' ')) {
       Symbol stackSymbol(token);
-      cout << "Símbolo alfabeto pila: " << stackSymbol.getValue() << endl;
+      cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
     }
 
     
