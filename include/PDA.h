@@ -12,6 +12,7 @@
 #ifndef PDA_H
 #define PDA_H
 
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -21,14 +22,17 @@
 
 #include "./Alphabet.h"
 #include "./State.h"
+#include "./Transition.h"
 
 using namespace std;
 
+#pragma once
 class PDA {
   public:
     PDA(string inputFileName);
     void readFile(string inputFileName);
     void printStates();
+    void printPDATuple();
 
   private:
     set<State*> states_;
@@ -37,7 +41,7 @@ class PDA {
     State initialState_;
     Symbol inialStackSymbol_;
     stack<Symbol> stack_;
-    set<State> acceptationStates_;
+    set<State*> acceptationStates_;
 };
 
 #endif // PDA_H

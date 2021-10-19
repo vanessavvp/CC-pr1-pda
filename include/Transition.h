@@ -18,9 +18,21 @@
 #include "./Symbol.h"
 #include "./State.h"
 
+using namespace std;
+#pragma once
+
+class State;
 class Transition {
   public:
+    Transition() {};
+    //Transition(State currentState, Symbol symbolToRead, Symbol topStackSymbol, State nextState, vector<Symbol> symbolsToIntroduce);
+
   private:
+    //State currentState_;
+    Symbol symbolToRead_;
+    Symbol topStackSymbol_;
+    //State nextState_;
+    vector<Symbol> symbolsToIntroduce_;
 };
 
 #endif // !TRANSITION_H

@@ -12,10 +12,12 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
 
+
 #include <iostream>
 #include <string>
 
 using namespace std;
+#pragma once
 
 class Symbol {
   public:

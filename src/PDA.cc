@@ -19,8 +19,13 @@ PDA::PDA(string inputFileName) {
 void PDA::printStates() {
   cout << "States -> ";
   for (auto state : states_)
-    cout << state->getIdentifier() << " IsInitial: " << state->getIsInitial() << " ";
+    cout << state->getIdentifier() << " ";
   cout << endl;
+}
+
+
+void PDA::printPDATuple() {
+
 }
 
 
@@ -34,11 +39,13 @@ void PDA::readFile(string inputFileName) {
   } else {
     cout << "\tThe inputfile " << inputFileName << " was successfully readed...\n";
 
+
     // Comments control
     getline(file, lineInfo);
     while (lineInfo.front() == '#') {
       getline(file, lineInfo);
     }
+
 
     // Set of states
     string token;
@@ -54,6 +61,7 @@ void PDA::readFile(string inputFileName) {
     // this->states_ = states;
     // this->printStates();
 
+
     // PDA Alphabet
     getline(file, lineInfo);
     stringstream symbol(lineInfo);
@@ -64,7 +72,8 @@ void PDA::readFile(string inputFileName) {
       symbols.insert(PDASymbol);
     }
     this->alphabet_.setAlphabet(symbols);
-    this->alphabet_.printAlphabet();
+    // this->alphabet_.printAlphabet();
+
 
     // Stack Alphabet
     getline(file, lineInfo);
@@ -76,7 +85,8 @@ void PDA::readFile(string inputFileName) {
       stackSymbols.insert(stackSymbol);
     }
     this->stackAlphabet_.setAlphabet(stackSymbols);
-    this->stackAlphabet_.printAlphabet();
+    // this->stackAlphabet_.printAlphabet();
+
 
     // Initial state
     getline(file, lineInfo);
@@ -89,6 +99,28 @@ void PDA::readFile(string inputFileName) {
       this->states_.insert(state);
     }
     if (!found) cerr << "The readed state is not part of the PDA's states\n";
-    this->printStates();
+    // this->printStates();
+
+
+    // Initial stack symbol
+    getline(file, lineInfo);
+    Symbol aux(lineInfo);
+    set<Symbol>::iterator it = this->stackAlphabet_.getAlphabet().find(aux);
+    if (it == this->stackAlphabet_.getAlphabet().cend()) 
+      cerr << "The readed symbol is not part of the stack alphabet\n";
+
+    // Final state
+    getline(file, lineInfo);
+    found = false;
+    for (auto state : states) {
+      if (state->getIdentifier() == lineInfo) {
+        state->setAcceptation(true);
+        found = true;
+      }
+      this->states_.insert(state);
+    }
+    if (!found) cerr << "The readed state is not part of the PDA's states\n";
+    // this->printStates();
+
   }
 }

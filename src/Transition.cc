@@ -10,3 +10,12 @@
  */
 
 #include "../include/Transition.h"
+
+/*Transition::Transition(State currentState, Symbol symbolToRead, Symbol topStackSymbol, State nextState,
+                      vector<Symbol> symbolsToIntroduce) {
+  currentState_ = currentState;
+  symbolToRead_ = symbolToRead;
+  topStackSymbol_ = topStackSymbol;
+  nextState_ = nextState;
+  symbolsToIntroduce_ = symbolsToIntroduce;
+}*/

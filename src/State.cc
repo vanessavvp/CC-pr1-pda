@@ -33,9 +33,9 @@ State::State(string identifier, bool isAcceptation, bool isInitial) {
 }
 
 
-State* State::getState() const {
+/*State* State::getState() const {
   return state_;
-}
+}*/
 
 
 string State::getIdentifier() const {
@@ -43,9 +43,9 @@ string State::getIdentifier() const {
 }
 
 
-vector<Transition> State::getTransitions() const {
+/*vector<Transition> State::getTransitions() const {
   return transitions_;
-}
+}*/
 
 
 bool State::getIsAcceptation() const {
@@ -58,9 +58,9 @@ bool State::getIsInitial() const {
 }
 
 
-void State::setState(State* state) {
+/*void State::setState(State* state) {
   state_ = state;
-}
+}*/
 
 
 void State::setAcceptation(bool isAcceptation) {
@@ -73,18 +73,18 @@ void State::setInitial(bool isInitial) {
 }
 
 
-void State::setTransitions(vector<Transition>& transitions) {
+/*void State::setTransitions(vector<Transition> transitions) {
   transitions_ = transitions;
-}
+}*/
 
 
-void State::addTransition(Transition& transition) {
+/*void State::addTransition(Transition transition) {
   transitions_.push_back(transition);
 }
+*/
 
-
-bool State::operator<(State const& other) const {
+/*bool State::operator<(State const& other) const {
   if (other.state_ < this->state_) 
     return true;
   return false;
-}
+}*/

@@ -18,6 +18,7 @@
 #include "./Symbol.h"
 
 using namespace std;
+#pragma once
 
 class Alphabet {
   public:

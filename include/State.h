@@ -12,32 +12,37 @@
 #ifndef STATE_H
 #define STATE_H
 
+
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "./Transition.h"
 
 using namespace std;
 
+#pragma once
+
+class Transition;
 class State {
   public:
     State();
     State(string identifier);
     State(string identifier, bool isAcceptation, bool isInitial);
-    State* getState() const;
+    // State* getState() const;
     string getIdentifier() const;
     bool getIsAcceptation() const;
     bool getIsInitial() const;
     vector<Transition> getTransitions() const;
-    void setState(State* state);
+    // void setState(State* state);
     void setAcceptation(bool isAcceptation);
     void setInitial(bool isInitial);
-    void setTransitions(vector<Transition>& transitions);
-    void addTransition(Transition& transition);
-    bool operator<(State const& other) const;
+    void setTransitions(vector<Transition> transitions);
+    void addTransition(Transition transition);
+    //bool operator<(State const& other) const;
 
   private:
-    State* state_;
+    // State* state_;
     string identifier_;
     bool isAcceptation_;
     bool isInitial_;
