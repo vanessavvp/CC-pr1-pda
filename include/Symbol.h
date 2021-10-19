@@ -9,6 +9,9 @@
  * Purpose: Implementing a Pushdown Automata
  */
 
+#ifndef SYMBOL_H
+#define SYMBOL_H
+
 #include <iostream>
 #include <string>
 
@@ -17,10 +20,12 @@ using namespace std;
 class Symbol {
   public:
     Symbol(string symbol);
-    string getSymbol();
-    void setSymbol(string symbol);
+    string getValue();
+    void setValue(string symbol);
     void print();
     
   private:
     string symbol_;
 };
+
+#endif // !SYMBOL_H

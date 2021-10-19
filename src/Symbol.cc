@@ -16,12 +16,12 @@ Symbol::Symbol(string symbol) {
 }
 
 
-string Symbol::getSymbol() {
+string Symbol::getValue() {
   return symbol_;
 }
 
 
-void Symbol::setSymbol(string symbol) {
+void Symbol::setValue(string symbol) {
   symbol_ = symbol;
 }
 

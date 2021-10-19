@@ -1,6 +1,6 @@
 /**
  * PROJECT HEADER
- * @file PDA.h
+ * @file Alphabet.h
  * @author: Vanessa Valentina Villalba Perez
  * Contact: alu0101265704@ull.edu.es
  * @date: 18/10/2021
@@ -9,25 +9,20 @@
  * Purpose: Implementing a Pushdown Automata
  */
 
-#ifndef PDA_H
-#define PDA_H
+#ifndef ALPHABET_H
+#define ALPHABET_H
 
 #include <iostream>
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <vector>
+#include <set>
 
-#include "./Alphabet.h"
+#include "./Symbol.h"
 
 using namespace std;
 
-class PDA {
+class Alphabet {
   public:
-    PDA(string inputFileName);
-
   private:
-    void readFile(string inputFileName);
+
 };
 
-#endif // PDA_H
+#endif // ALPHABET_H
