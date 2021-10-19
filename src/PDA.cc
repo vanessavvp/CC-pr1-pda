@@ -39,7 +39,6 @@ void PDA::readFile(string inputFileName) {
   } else {
     cout << "\tThe inputfile " << inputFileName << " was successfully readed...\n";
 
-
     // Comments control
     getline(file, lineInfo);
     while (lineInfo.front() == '#') {
@@ -121,6 +120,18 @@ void PDA::readFile(string inputFileName) {
     }
     if (!found) cerr << "The readed state is not part of the PDA's states\n";
     // this->printStates();
+    
 
+    // Transitions
+    //getline(file, lineInfo);
+    istringstream line(lineInfo);
+    string prueba;
+    while (line >> prueba) {
+      cout << "Primera transicion " << lineInfo;
+      stringstream currentState(lineInfo);
+      getline(currentState, token, ' ');
+      // State currentState();
+      cout << "\nPrimer estado " << token;
+    }
   }
 }
