@@ -54,62 +54,13 @@ void PDA::readFile(string inputFileName) {
     // Stack Alphabet
     getline(file, lineInfo);
     stringstream stackSymbol(lineInfo);
+    set<Symbol> stackSymbols;
     while (getline(stackSymbol, token, ' ')) {
       Symbol stackSymbol(token);
       cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
+      stackSymbols.insert(stackSymbol);
     }
-
-    
-
+    Alphabet stackAlphabet(stackSymbols);
+    stackAlphabet.printAlphabet();
   }
-  /*ifstream file;
-
-  file.open(inputFile);
-  if (!file.is_open()) {
-    cout << "Error opening file" << endl;
-    exit(1);
-  }
-  string line;
-  int i = 0;
-  while (getline(file, line)) {
-    if (i == 0) {
-      stringstream ss(line);
-      string token;
-      while (getline(ss, token, ' ')) {
-        if (token == "Q") {
-          getline(ss, token, ' ');
-          this->Q = stoi(token);
-        } else if (token == "Sigma") {
-          getline(ss, token, ' ');
-          this->Sigma = stoi(token);
-        } else if (token == "Delta") {
-          getline(ss, token, ' ');
-          this->Delta = stoi(token);
-        } else if (token == "Q0") {
-          getline(ss, token, ' ');
-          this->Q0 = stoi(token);
-        } else if (token == "F") {
-          getline(ss, token, ' ');
-          this->F = stoi(token);
-        }
-      }
-    } else {
-      stringstream ss(line);
-      string token;
-      while (getline(ss, token, ' ')) {
-        if (token == "q") {
-          getline(ss, token, ' ');
-          this->q.push_back(stoi(token));
-        } else if (token == "sigma") {
-          getline(ss, token, ' ');
-          this->sigma.push_back(token);
-        } else if (token == "delta") {
-          getline(ss, token, ' ');
-          this->delta.push_back(stoi(token));
-        } else if (token == "q0") {
-          getline(ss, token, ' ');
-          this->q0 = stoi(token);
-        } else if (token == "f") {
-          getline(ss, token,
-      */
 }
