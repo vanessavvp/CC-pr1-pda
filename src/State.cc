@@ -12,18 +12,24 @@
 #include "../include/State.h"
 
 State::State() {
-  state_ = NULL;
+  // state_ = NULL;
   identifier_ = "0";
   isAcceptation_ = false;
   isInitial_ = false;
 }
 
 
+State::State(string identifier) {
+  // state_ = NULL;
+  identifier_ = identifier;
+}
+
+
 State::State(string identifier, bool isAcceptation, bool isInitial) {
-  state_ = NULL;
-  identifier_ = "0";
-  isAcceptation_ = false;
-  isInitial_ = false;
+  // state_ = NULL;
+  identifier_ = identifier;
+  isAcceptation_ = isAcceptation;
+  isInitial_ = isInitial;
 }
 
 
@@ -39,6 +45,16 @@ string State::getIdentifier() const {
 
 vector<Transition> State::getTransitions() const {
   return transitions_;
+}
+
+
+bool State::getIsAcceptation() const {
+  return isAcceptation_;
+}
+
+
+bool State::getIsInitial() const {
+  return isInitial_;
 }
 
 
@@ -64,4 +80,11 @@ void State::setTransitions(vector<Transition>& transitions) {
 
 void State::addTransition(Transition& transition) {
   transitions_.push_back(transition);
+}
+
+
+bool State::operator<(State const& other) const {
+  if (other.state_ < this->state_) 
+    return true;
+  return false;
 }

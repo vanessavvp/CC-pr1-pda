@@ -22,15 +22,19 @@ using namespace std;
 class State {
   public:
     State();
+    State(string identifier);
     State(string identifier, bool isAcceptation, bool isInitial);
     State* getState() const;
     string getIdentifier() const;
+    bool getIsAcceptation() const;
+    bool getIsInitial() const;
     vector<Transition> getTransitions() const;
     void setState(State* state);
     void setAcceptation(bool isAcceptation);
     void setInitial(bool isInitial);
     void setTransitions(vector<Transition>& transitions);
     void addTransition(Transition& transition);
+    bool operator<(State const& other) const;
 
   private:
     State* state_;

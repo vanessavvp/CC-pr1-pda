@@ -28,9 +28,10 @@ class PDA {
   public:
     PDA(string inputFileName);
     void readFile(string inputFileName);
+    void printStates();
 
   private:
-    set<State> states_;
+    set<State*> states_;
     Alphabet alphabet_;
     Alphabet stackAlphabet_;
     State initialState_;

@@ -16,6 +16,14 @@ PDA::PDA(string inputFileName) {
 }
 
 
+void PDA::printStates() {
+  cout << "States -> ";
+  for (auto state : states_)
+    cout << state->getIdentifier() << " IsInitial: " << state->getIsInitial() << " ";
+  cout << endl;
+}
+
+
 void PDA::readFile(string inputFileName) {
   ifstream file(inputFileName);
   string lineInfo;
@@ -34,18 +42,25 @@ void PDA::readFile(string inputFileName) {
 
     // Set of states
     string token;
-    stringstream state(lineInfo);
-    while (getline(state, token, ' ')) {
-      cout << "Estado: " << token << endl;
+    stringstream element(lineInfo);
+    //set<State*> states; 
+    vector<State*> states;
+    while (getline(element, token, ' ')) {
+      State* state = new State(token, false, false);
+      // cout << "Estado: " << token << endl;
+      // states.insert(state);
+      states.push_back(state);
     }
-    
+    // this->states_ = states;
+    // this->printStates();
+
     // PDA Alphabet
     getline(file, lineInfo);
     stringstream symbol(lineInfo);
     set<Symbol> symbols;
     while (getline(symbol, token, ' ')) {
       Symbol PDASymbol(token);
-      cout << "Símbolo alfabeto PDA: " << PDASymbol.getSymbol() << endl;
+      // cout << "Símbolo alfabeto PDA: " << PDASymbol.getSymbol() << endl;
       symbols.insert(PDASymbol);
     }
     this->alphabet_.setAlphabet(symbols);
@@ -57,10 +72,23 @@ void PDA::readFile(string inputFileName) {
     set<Symbol> stackSymbols;
     while (getline(stackSymbol, token, ' ')) {
       Symbol stackSymbol(token);
-      cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
+      // cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
       stackSymbols.insert(stackSymbol);
     }
     this->stackAlphabet_.setAlphabet(stackSymbols);
     this->stackAlphabet_.printAlphabet();
+
+    // Initial state
+    getline(file, lineInfo);
+    bool found = false;
+    for (auto state : states) {
+      if (state->getIdentifier() == lineInfo) {
+        state->setInitial(true);
+        found = true;
+      }
+      this->states_.insert(state);
+    }
+    if (!found) cerr << "The readed state is not part of the PDA's states\n";
+    this->printStates();
   }
 }
