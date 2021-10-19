@@ -12,7 +12,6 @@
 #include "../include/State.h"
 
 State::State() {
-  // state_ = NULL;
   identifier_ = "0";
   isAcceptation_ = false;
   isInitial_ = false;
@@ -20,13 +19,11 @@ State::State() {
 
 
 State::State(string identifier) {
-  // state_ = NULL;
   identifier_ = identifier;
 }
 
 
 State::State(string identifier, bool isAcceptation, bool isInitial) {
-  // state_ = NULL;
   identifier_ = identifier;
   isAcceptation_ = isAcceptation;
   isInitial_ = isInitial;
@@ -83,8 +80,8 @@ void State::setInitial(bool isInitial) {
 }
 */
 
-/*bool State::operator<(State const& other) const {
-  if (other.state_ < this->state_) 
+bool State::operator<(State const& other) const {
+  if (other.identifier_ < this->identifier_) 
     return true;
   return false;
-}*/
+}

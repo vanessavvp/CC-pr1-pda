@@ -25,13 +25,13 @@ class State;
 class Transition {
   public:
     Transition() {};
-    //Transition(State currentState, Symbol symbolToRead, Symbol topStackSymbol, State nextState, vector<Symbol> symbolsToIntroduce);
+    Transition(State& currentState, Symbol symbolToRead, Symbol topStackSymbol, State& nextState, vector<Symbol> symbolsToIntroduce);
 
   private:
-    //State currentState_;
+    State* currentState_;
     Symbol symbolToRead_;
     Symbol topStackSymbol_;
-    //State nextState_;
+    State* nextState_;
     vector<Symbol> symbolsToIntroduce_;
 };
 
