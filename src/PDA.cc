@@ -48,8 +48,8 @@ void PDA::readFile(string inputFileName) {
       cout << "Símbolo alfabeto PDA: " << PDASymbol.getSymbol() << endl;
       symbols.insert(PDASymbol);
     }
-    Alphabet PDAAlphabet(symbols);
-    PDAAlphabet.printAlphabet();
+    this->alphabet_.setAlphabet(symbols);
+    this->alphabet_.printAlphabet();
 
     // Stack Alphabet
     getline(file, lineInfo);
@@ -60,7 +60,7 @@ void PDA::readFile(string inputFileName) {
       cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
       stackSymbols.insert(stackSymbol);
     }
-    Alphabet stackAlphabet(stackSymbols);
-    stackAlphabet.printAlphabet();
+    this->stackAlphabet_.setAlphabet(stackSymbols);
+    this->stackAlphabet_.printAlphabet();
   }
 }

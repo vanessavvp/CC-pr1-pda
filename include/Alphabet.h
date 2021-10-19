@@ -21,6 +21,7 @@ using namespace std;
 
 class Alphabet {
   public:
+    Alphabet() {};
     Alphabet(set<Symbol>& symbols);
     void setAlphabet(set<Symbol>& symbols);
     set<Symbol> getAlphabet() const;

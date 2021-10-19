@@ -1,6 +1,6 @@
 /**
  * PROJECT HEADER
- * @file State.cc
+ * @file State.h
  * @author: Vanessa Valentina Villalba Perez
  * Contact: alu0101265704@ull.edu.es
  * @date: 18/10/2021
@@ -9,4 +9,15 @@
  * Purpose: Implementing a Pushdown Automata
  */
 
-#include "../include/State.h"
+#ifndef STATE_H
+#define STATE_H
+
+#include <iostream>
+
+class State {
+  public:
+    State() {};
+  private:
+};
+
+#endif // !STATE_H

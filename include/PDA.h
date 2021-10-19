@@ -17,17 +17,26 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <stack>
 
 #include "./Alphabet.h"
+#include "./State.h"
 
 using namespace std;
 
 class PDA {
   public:
     PDA(string inputFileName);
+    void readFile(string inputFileName);
 
   private:
-    void readFile(string inputFileName);
+    set<State> states_;
+    Alphabet alphabet_;
+    Alphabet stackAlphabet_;
+    State initialState_;
+    Symbol inialStackSymbol_;
+    stack<Symbol> stack_;
+    set<State> acceptationStates_;
 };
 
 #endif // PDA_H
