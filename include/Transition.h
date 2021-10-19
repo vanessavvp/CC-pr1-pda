@@ -25,7 +25,17 @@ class State;
 class Transition {
   public:
     Transition() {};
-    Transition(State& currentState, Symbol symbolToRead, Symbol topStackSymbol, State& nextState, vector<Symbol> symbolsToIntroduce);
+    Transition(State* currentState, Symbol symbolToRead, Symbol topStackSymbol, State* nextState, vector<Symbol> symbolsToIntroduce);
+    void setCurrentState(State* currentState);
+    void setSymbolToRead(Symbol symbolToRead);
+    void setTopStackSymbol(Symbol topStackSymbol);
+    void setNextState(State* nextState);
+    void setSymbolsToIntroduce(vector<Symbol> symbolsToIntroduce);
+    State* getCurrentState();
+    Symbol getSymbolToRead();
+    Symbol getTopStackSymbol();
+    State* getNextState();
+    vector<Symbol> getSymbolsToIntroduce();
 
   private:
     State* currentState_;
