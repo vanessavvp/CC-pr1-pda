@@ -18,7 +18,7 @@ PDA::PDA(string inputFileName) {
 
 void PDA::printStates() {
   for (auto state : states_)
-    cout << "State -> " << state->getIdentifier() << " Initial:" << state->getIsInitial() << " Acceptation:" << state->getIsAcceptation() << endl;
+    cout << "State -> " << state.getIdentifier() << " Initial:" << state.getIsInitial() << " Acceptation:" << state.getIsAcceptation() << endl;
   cout << endl;
 }
 
@@ -46,9 +46,9 @@ void PDA::setTapeAlphabet(string lineInfo) {
 }
 
 
-bool PDA::hasState(string stateIdentifier, vector<State*> states) {
+bool PDA::hasState(string stateIdentifier, vector<State> states) {
   for (auto state: states) {
-    if (state->getIdentifier() == stateIdentifier) {
+    if (state.getIdentifier() == stateIdentifier) {
       return true;
     }
   }
@@ -90,9 +90,9 @@ void PDA::readFile(string inputFileName) {
     // Auxiliar set of states
     string token;
     stringstream element(lineInfo);
-    vector<State*> states;
+    vector<State> states;
     while (getline(element, token, ' ')) {
-      State* state = new State(token, false, false);
+      State state(token, false, false);
       states.push_back(state);
     }
 
@@ -110,9 +110,9 @@ void PDA::readFile(string inputFileName) {
     // Initial state
     getline(file, lineInfo);
     if (hasState(lineInfo, states)) {
-      for (auto state : states) {
-        if (state->getIdentifier() == lineInfo) {
-          state->setInitial(true);
+      for (auto &state : states) {
+        if (state.getIdentifier() == lineInfo) {
+          state.setInitial(true);
         }
       }
     } else {
@@ -135,9 +135,9 @@ void PDA::readFile(string inputFileName) {
     stringstream ss(lineInfo); 
     while (ss >> token) {
       if (hasState(token, states) == true) {
-        for (auto state: states) {
-          if (state->getIdentifier() == token) { 
-            state->setAcceptation(true);
+        for (auto &state: states) {
+          if (state.getIdentifier() == token) { 
+            state.setAcceptation(true);
           }
           this->states_.insert(state);
         }
@@ -159,21 +159,14 @@ void PDA::readFile(string inputFileName) {
       // Current state
       ss >> token;
       cout << token << " ";
-      State* state = new State(token);
-      if (this->hasState(token, states)) {
-        transition.setCurrentState(state);
-      } else {
-        error = "The readed state is not part of the PDA's states\n";
-        throw error;
-      }
-      /*auto it = this->states_.find(state);
-      // cout << "actual " << state->getIdentifier() << " viejo " << (*it)->getIdentifier();
+      State state(token);
+      auto it = find(this->states_.begin(), this->states_.end(), state);
       if (it != this->states_.end()) {
         transition.setCurrentState(state);
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
-      }*/
+      }
 
       // Input symbol
       ss >> token;
@@ -186,12 +179,12 @@ void PDA::readFile(string inputFileName) {
       transition.setTopStackSymbol(token);
 
       // Next State
-      cout << " -> ";
       ss >> token;
       cout << token << " ";
-      State* nextState = new State(token);
-      if (this->hasState(token, states)) {
-        transition.setNextState(nextState);
+      State nextState(token);
+      it = find(this->states_.begin(), this->states_.end(), nextState);
+      if (it != this->states_.end()) {
+        transition.setCurrentState(nextState);
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;

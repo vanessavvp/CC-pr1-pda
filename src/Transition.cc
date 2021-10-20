@@ -11,18 +11,18 @@
 
 #include "../include/Transition.h"
 
-Transition::Transition(State* currentState, Symbol symbolToRead, Symbol topStackSymbol, State* nextState,
+Transition::Transition(State& currentState, Symbol symbolToRead, Symbol topStackSymbol, State& nextState,
                       vector<Symbol> symbolsToIntroduce) {
-  currentState_ = currentState;
+  currentState_ = &currentState;
   symbolToRead_ = symbolToRead;
   topStackSymbol_ = topStackSymbol;
-  nextState_ = nextState;
+  nextState_ = &nextState;
   symbolsToIntroduce_ = symbolsToIntroduce;
 }
 
 
-void Transition::setCurrentState(State* currentState) {
-  currentState_ = currentState;
+void Transition::setCurrentState(State& currentState) {
+  currentState_ = &currentState;
 }
 
 
@@ -36,8 +36,8 @@ void Transition::setTopStackSymbol(Symbol topStackSymbol) {
 }
 
 
-void Transition::setNextState(State* nextState) {
-  nextState_ = nextState;
+void Transition::setNextState(State& nextState) {
+  nextState_ = &nextState;
 }
 
 

@@ -36,17 +36,16 @@ class PDA {
     bool isComment(string lineInfo);
     void setTapeAlphabet(string lineInfo);
     void setStackAlphabet(string lineInfo);
-    bool hasState(string stateIdentifier, vector<State*> states);
-    // bool equalStates(State* state);
+    bool hasState(string stateIdentifier, vector<State> states);
 
   private:
-    set<State*> states_;
+    set<State> states_;
     Alphabet tapeAlphabet_;
     Alphabet stackAlphabet_;
     State* currentState_;
     Symbol initialStackSymbol_;
     stack<Symbol> stack_;
-    set<State*> acceptationStates_;
+    set<State> acceptationStates_;
 };
 
 #endif // PDA_H

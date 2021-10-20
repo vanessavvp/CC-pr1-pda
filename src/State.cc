@@ -83,9 +83,7 @@ void State::addTransition(Transition& transition) {
 
 
 bool State::operator<(State const& other) const {
-  if ((other.identifier_ == this->identifier_) &&
-      (other.isInitial_ == this->isInitial_) &&
-      (other.isAcceptation_ == this->isAcceptation_)) { 
+  if (other.identifier_ < this->identifier_) { 
     return true;
   }
   return false;
@@ -93,9 +91,7 @@ bool State::operator<(State const& other) const {
 
 
 bool State::operator==(State const& other) const {
-  if ((other.identifier_ == this->identifier_) &&
-      (other.isInitial_ == this->isInitial_) &&
-      (other.isAcceptation_ == this->isAcceptation_)) {
+  if (other.identifier_ == this->identifier_) {
     return true;
   }
   return false;
