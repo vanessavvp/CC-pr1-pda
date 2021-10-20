@@ -29,6 +29,7 @@ class Alphabet {
     void addSymbol(Symbol& symbol);
     int getSize() const;
     void printAlphabet();
+    bool hasSymbol(Symbol& Symbol);
 
   private:
     set<Symbol> alphabet_;

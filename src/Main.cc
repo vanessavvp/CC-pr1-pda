@@ -16,8 +16,8 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+  cout << "\n\tPushdown Automata" << endl;
   try {
-    cout << "\n\tPushdown Automata" << endl;
     string inputFileName = argv[1];
     PDA PDA(inputFileName);
   } catch(const string e) {

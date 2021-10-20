@@ -17,9 +17,8 @@ PDA::PDA(string inputFileName) {
 
 
 void PDA::printStates() {
-  cout << "States -> ";
   for (auto state : states_)
-    cout << state->getIdentifier() << " ";
+    cout << "State -> " << state->getIdentifier() << " Initial:" << state->getIsInitial() << " Acceptation:" << state->getIsAcceptation() << endl;
   cout << endl;
 }
 
@@ -29,109 +28,145 @@ void PDA::printPDATuple() {
 }
 
 
+bool PDA::isComment(string lineInfo) {
+  if (lineInfo.front() == '#') return true; 
+  return false;
+}
+
+
+void PDA::setTapeAlphabet(string lineInfo) {
+  stringstream symbol(lineInfo);
+  set<Symbol> symbols;
+  string token;
+  while (getline(symbol, token, ' ')) {
+    Symbol PDASymbol(token);
+    symbols.insert(PDASymbol);
+  }
+  this->tapeAlphabet_.setAlphabet(symbols);
+}
+
+
+bool PDA::hasState(string stateIdentifier, vector<State*> states) {
+  for (auto state: states) {
+    if (state->getIdentifier() == stateIdentifier) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+void PDA::setStackAlphabet(string lineInfo) {
+  stringstream stackSymbol(lineInfo);
+  set<Symbol> stackSymbols;
+  string token;
+  while (getline(stackSymbol, token, ' ')) {
+    Symbol stackSymbol(token);
+    stackSymbols.insert(stackSymbol);
+  }
+  this->stackAlphabet_.setAlphabet(stackSymbols);
+}
+
+
 void PDA::readFile(string inputFileName) {
   ifstream file(inputFileName);
   string lineInfo;
+  string error;
 
   if (!file.is_open()) {
-    cerr << "\nERROR: The inputfile  " << inputFileName << " could not be opened\n";
-    exit(1);
+    error = "\nERROR: The inputfile  " + inputFileName + " could not be opened\n";
+    throw error;
   } else {
     cout << "\tThe inputfile " << inputFileName << " was successfully readed...\n";
 
+
     // Comments control
     getline(file, lineInfo);
-    while (lineInfo.front() == '#') {
+    while (this->isComment(lineInfo)) {
       getline(file, lineInfo);
     }
 
 
-    // Set of states
+    // Auxiliar set of states
     string token;
     stringstream element(lineInfo);
-    //set<State*> states; 
     vector<State*> states;
     while (getline(element, token, ' ')) {
       State* state = new State(token, false, false);
-      // cout << "Estado: " << token << endl;
-      // states.insert(state);
       states.push_back(state);
     }
-    // this->states_ = states;
-    // this->printStates();
 
 
     // PDA Alphabet
     getline(file, lineInfo);
-    stringstream symbol(lineInfo);
-    set<Symbol> symbols;
-    while (getline(symbol, token, ' ')) {
-      Symbol PDASymbol(token);
-      // cout << "Símbolo alfabeto PDA: " << PDASymbol.getSymbol() << endl;
-      symbols.insert(PDASymbol);
-    }
-    this->alphabet_.setAlphabet(symbols);
-    // this->alphabet_.printAlphabet();
+    this->setTapeAlphabet(lineInfo);
 
 
     // Stack Alphabet
     getline(file, lineInfo);
-    stringstream stackSymbol(lineInfo);
-    set<Symbol> stackSymbols;
-    while (getline(stackSymbol, token, ' ')) {
-      Symbol stackSymbol(token);
-      // cout << "Símbolo alfabeto pila: " << stackSymbol.getSymbol() << endl;
-      stackSymbols.insert(stackSymbol);
-    }
-    this->stackAlphabet_.setAlphabet(stackSymbols);
-    // this->stackAlphabet_.printAlphabet();
+    this->setStackAlphabet(lineInfo);
 
 
     // Initial state
     getline(file, lineInfo);
-    bool found = false;
-    for (auto state : states) {
-      if (state->getIdentifier() == lineInfo) {
-        state->setInitial(true);
-        found = true;
+    if (hasState(lineInfo, states)) {
+      for (auto state : states) {
+        if (state->getIdentifier() == lineInfo) {
+          state->setInitial(true);
+        }
       }
-      this->states_.insert(state);
+    } else {
+      error = "The readed state is not part of the PDA's states\n";
+      throw error;
     }
-    if (!found) cerr << "The readed state is not part of the PDA's states\n";
-    // this->printStates();
 
 
     // Initial stack symbol
     getline(file, lineInfo);
-    Symbol aux(lineInfo);
-    set<Symbol>::iterator it = this->stackAlphabet_.getAlphabet().find(aux);
-    if (it == this->stackAlphabet_.getAlphabet().cend()) 
-      cerr << "The readed symbol is not part of the stack alphabet\n";
-
-    // Final state
-    getline(file, lineInfo);
-    found = false;
-    for (auto state : states) {
-      if (state->getIdentifier() == lineInfo) {
-        state->setAcceptation(true);
-        found = true;
-      }
-      this->states_.insert(state);
+    Symbol symbol(lineInfo);
+    if (!this->stackAlphabet_.hasSymbol(symbol)) {
+      error = "The readed symbol is not part of the stack alphabet\n";
+      throw error;
     }
-    if (!found) cerr << "The readed state is not part of the PDA's states\n";
-    // this->printStates();
+
+
+    // Acceptation
+    getline(file, lineInfo);
+    stringstream ss(lineInfo); 
+    while (ss >> token) {
+      if (hasState(token, states) == true) {
+        for (auto state: states) {
+          if (state->getIdentifier() == token) { 
+            state->setAcceptation(true);
+          }
+          this->states_.insert(state);
+        }
+      } else {
+        error = "The readed state is not part of the PDA's states\n";
+        throw error;
+      }
+    }
+    this->printStates();
     
 
     // Transitions
-    //getline(file, lineInfo);
-    istringstream line(lineInfo);
-    string prueba;
-    while (line >> prueba) {
-      cout << "Primera transicion " << lineInfo;
-      stringstream currentState(lineInfo);
-      getline(currentState, token, ' ');
-      // State currentState();
-      cout << "\nPrimer estado " << token;
+    getline(file, lineInfo);
+    while (!lineInfo.empty()) {
+      stringstream ss(lineInfo); 
+
+      // Current state
+      ss >> token;
+      cout << token << " ";
+
+      // Input symbol
+      ss >> token;
+      cout << token << " ";
+
+      // Stack top
+      ss >> token;
+      cout << token << " ";
+      cout << endl;
+      getline(file, lineInfo);
     }
   }
 }

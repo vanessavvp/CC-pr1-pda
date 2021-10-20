@@ -38,6 +38,7 @@ class State {
     void setTransitions(vector<Transition>& transitions);
     void addTransition(Transition& transition);
     bool operator<(State const& other) const;
+    bool operator==(State const& other) const;
 
   private:
     string identifier_;

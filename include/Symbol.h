@@ -27,6 +27,7 @@ class Symbol {
     void setSymbol(string symbol);
     void print();
     bool operator<(Symbol const& other) const;
+    bool operator==(Symbol const& other) const;
     
   private:
     string symbol_;

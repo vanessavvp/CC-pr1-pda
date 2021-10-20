@@ -43,3 +43,14 @@ void Alphabet::printAlphabet() {
     cout << symbol.getSymbol() << " ";
   cout << endl;
 }
+
+
+bool Alphabet::hasSymbol(Symbol& symbol) {
+  set<Symbol>::iterator it = alphabet_.find(symbol);
+  if (it == alphabet_.cend()) {
+    return false;
+  } else {
+    return true;
+  }
+}
+

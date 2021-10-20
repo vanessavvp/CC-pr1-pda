@@ -20,6 +20,8 @@ State::State() {
 
 State::State(string identifier) {
   identifier_ = identifier;
+  isAcceptation_ = false;
+  isInitial_ = false;
 }
 
 
@@ -82,6 +84,13 @@ void State::setInitial(bool isInitial) {
 
 bool State::operator<(State const& other) const {
   if (other.identifier_ < this->identifier_) 
+    return true;
+  return false;
+}
+
+
+bool State::operator==(State const& other) const {
+  if (other.identifier_ == this->identifier_) 
     return true;
   return false;
 }

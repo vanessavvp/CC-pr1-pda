@@ -13,12 +13,12 @@
 #define PDA_H
 
 
-#include <iostream>
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <vector>
 #include <stack>
+#include <algorithm>
+#include <utility>
 
 #include "./Alphabet.h"
 #include "./State.h"
@@ -33,13 +33,17 @@ class PDA {
     void readFile(string inputFileName);
     void printStates();
     void printPDATuple();
+    bool isComment(string lineInfo);
+    void setTapeAlphabet(string lineInfo);
+    void setStackAlphabet(string lineInfo);
+    bool hasState(string stateIdentifier, vector<State*> states);
 
   private:
     set<State*> states_;
-    Alphabet alphabet_;
+    Alphabet tapeAlphabet_;
     Alphabet stackAlphabet_;
-    State initialState_;
-    Symbol inialStackSymbol_;
+    State* currentState_;
+    Symbol initialStackSymbol_;
     stack<Symbol> stack_;
     set<State*> acceptationStates_;
 };

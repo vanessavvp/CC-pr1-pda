@@ -36,3 +36,10 @@ bool Symbol::operator<(Symbol const& other) const {
     return true;
   return false;
 }
+
+
+bool Symbol::operator==(Symbol const& other) const {
+  if (other.symbol_ == this->symbol_) 
+    return true;
+  return false;
+}
