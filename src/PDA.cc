@@ -163,7 +163,7 @@ void PDA::readFile(string inputFileName) {
       State state(token);
       vector<State>::iterator it = find(states.begin(), states.end(), state);
       if (it != states.end()) {
-        transition.setCurrentState(state);
+        transition.setCurrentState(state.getIdentifier());
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
@@ -185,7 +185,7 @@ void PDA::readFile(string inputFileName) {
       State nextState(token);
       it = find(states.begin(), states.end(), nextState);
       if (it != states.end()) {
-        transition.setNextState(nextState);
+        transition.setNextState(nextState.getIdentifier());
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
@@ -203,7 +203,7 @@ void PDA::readFile(string inputFileName) {
       getline(file, lineInfo);
 
       // Including transitions to a state
-      it = find(states.begin(), states.end(), State(transition.getCurrentState()->getIdentifier()));
+      it = find(states.begin(), states.end(), State(transition.getCurrentState()));
       if (it != states.end()) {
         (*it).addTransition(transition);
       }
@@ -212,6 +212,12 @@ void PDA::readFile(string inputFileName) {
       auto it = find(states.begin(), states.end(), state);
       this->states_.insert(*it);
       // cout << "Estado " << state.getIdentifier() << endl;
+    }
+    for (auto state: states_) {
+      vector<Transition> transitions = state.getTransitions();
+      for (auto transition: transitions) {
+        transition.printTransition();
+      }
     }
   }
 }
@@ -245,7 +251,7 @@ bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stac
   for (auto transition: possibleTransitions) {
     //Symbol top(stack.top());
     cout << "top " << stack.top().getSymbol() << endl;
-    // transition.printTransition();
+    //transition.printTransition();
     /*if (transition.isPossibleToTransit(symbol[headerPos], stack.top())) {
 
     }*/

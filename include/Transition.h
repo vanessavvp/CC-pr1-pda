@@ -25,25 +25,25 @@ class State;
 class Transition {
   public:
     Transition() {};
-    Transition(State& currentState, Symbol symbolToRead, Symbol topStackSymbol, State& nextState, vector<Symbol> symbolsToIntroduce);
-    void setCurrentState(State& currentState);
+    Transition(string currentState, Symbol symbolToRead, Symbol topStackSymbol, string nextState, vector<Symbol> symbolsToIntroduce);
+    void setCurrentState(string currentState);
     void setSymbolToRead(Symbol symbolToRead);
     void setTopStackSymbol(Symbol topStackSymbol);
-    void setNextState(State& nextState);
+    void setNextState(string nextState);
     void setSymbolsToIntroduce(vector<Symbol> symbolsToIntroduce);
-    State* getCurrentState();
+    string getCurrentState();
     Symbol getSymbolToRead();
     Symbol getTopStackSymbol();
-    State* getNextState();
+    string getNextState();
     vector<Symbol> getSymbolsToIntroduce();
     void printTransition();
     bool isPossibleToTransit(string symbolToRead, Symbol topStackSymbol);
 
   private:
-    State* currentState_;
+    string currentState_;
     Symbol symbolToRead_;
-    Symbol topStackSymbol_;
-    State* nextState_;
+    Symbol topStackSymbol_; 
+    string nextState_;
     vector<Symbol> symbolsToIntroduce_;
 };
 
