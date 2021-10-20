@@ -39,12 +39,13 @@ class PDA {
     bool hasState(string stateIdentifier, vector<State> states);
     void start(string inputString);
     bool recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack);
+    void printStack(stack<Symbol>& stack);
 
   private:
     set<State> states_;
     Alphabet tapeAlphabet_;
     Alphabet stackAlphabet_;
-    State* currentState_;
+    State currentState_;
     Symbol initialStackSymbol_;
     stack<Symbol> stack_;
 };

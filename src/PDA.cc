@@ -113,7 +113,7 @@ void PDA::readFile(string inputFileName) {
       for (auto &state : states) {
         if (state.getIdentifier() == lineInfo) {
           state.setInitial(true);
-          this->currentState_ = &(state);
+          this->currentState_ = state;
         }
       }
     } else {
@@ -128,6 +128,8 @@ void PDA::readFile(string inputFileName) {
     if (!this->stackAlphabet_.hasSymbol(symbol)) {
       error = "The readed symbol is not part of the stack alphabet\n";
       throw error;
+    } else {
+      this->stack_.push(symbol);
     }
 
 
@@ -214,17 +216,34 @@ void PDA::readFile(string inputFileName) {
 
 void PDA::start(string inputString) {
   int headerPos = 0;
-  /*if (recursiveStart(inputString, headerPos, &(currentState_), stack_)) {
-    cout << "Input string is accepted!\n";
+  if (recursiveStart(inputString, headerPos, currentState_, stack_)) {
+    cout << "\nInput string is accepted!\n";
   } else {
-    cout << "Input string is rejected!\n";
-  }*/
+    cout << "\nInput string is rejected!\n";
+  }
+}
+
+
+void PDA::printStack(stack<Symbol>& stack) {
+
 }
 
 
 bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack) {
-  if ((headerPos >= symbol.length()) && (currentState.isAcceptation())) {
+  auto current = find(states_.begin(), states_.end(), currentState);
+  cout << "Current state: " << (*current).getIdentifier() << " Tape: " << symbol << " Stack: ";
+  if ((headerPos >= symbol.length()) && ((*current).isAcceptation())) {
     return true;
+  }
+  vector<Transition> possibleTransitions = (*current).getTransitions();
+  cout << "\nisAcept: " << (*current).isAcceptation() << " isInitial " << (*current).isInitial() << endl;
+  cout << "\nsize: " << possibleTransitions.size() << endl;
+  for (auto transition: possibleTransitions) {
+    //Symbol top(stack.top());
+    cout << "top " << stack.top().getSymbol() << endl;
+    /*if (transition.isPossibleToTransit(symbol[headerPos], stack.top())) {
+
+    }*/
   }
   return false;
 }

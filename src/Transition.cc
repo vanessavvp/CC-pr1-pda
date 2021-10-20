@@ -82,3 +82,15 @@ void Transition::printTransition() {
   }
   cout << endl;
 }
+
+
+bool Transition::isPossibleToTransit(string symbolToRead, Symbol topStackSymbol) {
+  if ((symbolToRead == this->symbolToRead_.getSymbol()) || (symbolToRead == ".") &&
+      (topStackSymbol == this->topStackSymbol_) || (topStackSymbol.getSymbol() == ".")) {
+    cout << "Is possible to transit!\n";
+    return true;
+  }
+  cout << "Is not possible to transit!\n";
+  return false;
+}
+
