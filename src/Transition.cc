@@ -72,14 +72,14 @@ vector<Symbol> Transition::getSymbolsToIntroduce() {
 
 
 void Transition::printTransition() {
-  cout << "Current state: " << currentState_->getIdentifier() << endl;
-  cout << "Symbol to read: " << symbolToRead_.getSymbol() << endl;
-  cout << "Top stack symbol: " << topStackSymbol_.getSymbol() << endl;
-  cout << "Next state: " << nextState_->getIdentifier() << endl;
-  cout << "Symbol to read: \n"; 
-  for (auto symbol : symbolsToIntroduce_) {
-    cout << " " << symbol.getSymbol() << endl;
-  }
+  // cout << "Current state: " << currentState_->getIdentifier() << endl;
+  // cout << "Symbol to read: " << symbolToRead_.getSymbol() << endl;
+  // cout << "Top stack symbol: " << topStackSymbol_.getSymbol() << endl;
+  // cout << "Next state: " << nextState_->getIdentifier() << endl;
+  // cout << "Symbol to read: \n"; 
+  // for (auto symbol : symbolsToIntroduce_) {
+  //   cout << " " << symbol.getSymbol() << endl;
+  // }
   cout << endl;
 }
 

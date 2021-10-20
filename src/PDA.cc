@@ -96,7 +96,6 @@ void PDA::readFile(string inputFileName) {
       states.push_back(state);
     }
 
-
     // PDA Alphabet
     getline(file, lineInfo);
     this->setTapeAlphabet(lineInfo);
@@ -208,7 +207,11 @@ void PDA::readFile(string inputFileName) {
       if (it != states.end()) {
         (*it).addTransition(transition);
       }
+    }
+    for (auto state: states) {
+      auto it = find(states.begin(), states.end(), state);
       this->states_.insert(*it);
+      // cout << "Estado " << state.getIdentifier() << endl;
     }
   }
 }
@@ -230,17 +233,19 @@ void PDA::printStack(stack<Symbol>& stack) {
 
 
 bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack) {
+  cout << "conjunto de estados size " << states_.size() << endl;
   auto current = find(states_.begin(), states_.end(), currentState);
-  cout << "Current state: " << (*current).getIdentifier() << " Tape: " << symbol << " Stack: ";
-  if ((headerPos >= symbol.length()) && ((*current).isAcceptation())) {
+  cout << "Current state: " << current->getIdentifier() << " Tape: " << symbol << " Stack: ";
+  if ((headerPos >= symbol.length()) && (current->isAcceptation())) {
     return true;
   }
-  vector<Transition> possibleTransitions = (*current).getTransitions();
-  cout << "\nisAcept: " << (*current).isAcceptation() << " isInitial " << (*current).isInitial() << endl;
+  vector<Transition> possibleTransitions = current->getTransitions();
+  cout << "\nisAcept: " << current->isAcceptation() << " isInitial " << current->isInitial() << endl;
   cout << "\nsize: " << possibleTransitions.size() << endl;
   for (auto transition: possibleTransitions) {
     //Symbol top(stack.top());
     cout << "top " << stack.top().getSymbol() << endl;
+    // transition.printTransition();
     /*if (transition.isPossibleToTransit(symbol[headerPos], stack.top())) {
 
     }*/
