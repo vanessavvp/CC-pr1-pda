@@ -165,6 +165,11 @@ void PDA::readFile(string inputFileName) {
       // Stack top
       ss >> token;
       cout << token << " ";
+
+      stringstream elements(lineInfo); 
+      while (elements >> token) {
+        cout << token << " ";
+      }
       cout << endl;
       getline(file, lineInfo);
     }
