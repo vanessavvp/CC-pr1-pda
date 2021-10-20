@@ -72,25 +72,31 @@ void State::setInitial(bool isInitial) {
 }
 
 
-/*void State::setTransitions(vector<Transition> transitions) {
+void State::setTransitions(vector<Transition>& transitions) {
   transitions_ = transitions;
-}*/
+}
 
 
-/*void State::addTransition(Transition transition) {
+void State::addTransition(Transition& transition) {
   transitions_.push_back(transition);
 }
-*/
+
 
 bool State::operator<(State const& other) const {
-  if (other.identifier_ < this->identifier_) 
+  if ((other.identifier_ == this->identifier_) &&
+      (other.isInitial_ == this->isInitial_) &&
+      (other.isAcceptation_ == this->isAcceptation_)) { 
     return true;
+  }
   return false;
 }
 
 
 bool State::operator==(State const& other) const {
-  if (other.identifier_ == this->identifier_) 
+  if ((other.identifier_ == this->identifier_) &&
+      (other.isInitial_ == this->isInitial_) &&
+      (other.isAcceptation_ == this->isAcceptation_)) {
     return true;
+  }
   return false;
 }

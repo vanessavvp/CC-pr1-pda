@@ -150,6 +150,7 @@ void PDA::readFile(string inputFileName) {
     
 
     // Transitions
+    Transition transition;
     getline(file, lineInfo);
     while (!lineInfo.empty()) {
       stringstream ss(lineInfo); 
@@ -157,6 +158,15 @@ void PDA::readFile(string inputFileName) {
       // Current state
       ss >> token;
       cout << token << " ";
+      State* state = new State(token);
+      auto it = this->states_.find(state);
+      // cout << "actual " << state->getIdentifier() << " viejo " << (*it)->getIdentifier();
+      if (it != this->states_.end()) {
+        transition.setCurrentState(state);
+      } else {
+        error = "The readed state is not part of the PDA's states\n";
+        throw error;
+      }
 
       // Input symbol
       ss >> token;

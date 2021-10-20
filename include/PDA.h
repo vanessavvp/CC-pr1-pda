@@ -37,6 +37,7 @@ class PDA {
     void setTapeAlphabet(string lineInfo);
     void setStackAlphabet(string lineInfo);
     bool hasState(string stateIdentifier, vector<State*> states);
+    // bool equalStates(State* state);
 
   private:
     set<State*> states_;
