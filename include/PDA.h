@@ -12,13 +12,13 @@
 #ifndef PDA_H
 #define PDA_H
 
-
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <stack>
 #include <algorithm>
 #include <utility>
+#include <iomanip>
 
 #include "./Alphabet.h"
 #include "./State.h"
@@ -39,7 +39,6 @@ class PDA {
     bool hasState(string stateIdentifier, vector<State> states);
     void start(string inputString);
     bool recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack);
-    void printStack(stack<Symbol>& stack);
 
   private:
     set<State> states_;
@@ -48,6 +47,7 @@ class PDA {
     State currentState_;
     Symbol initialStackSymbol_;
     stack<Symbol> stack_;
+    stack<Symbol> auxStack_;
 };
 
 #endif // PDA_H

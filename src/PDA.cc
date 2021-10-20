@@ -225,6 +225,7 @@ void PDA::readFile(string inputFileName) {
 
 void PDA::start(string inputString) {
   int headerPos = 0;
+  cout << "\nCurrent state" << setw(30) << "Tape string" << setw(30) << "Stack top" << setw(30) << "Next State" << setw(30) << "Stack input" << endl;
   if (recursiveStart(inputString, headerPos, currentState_, stack_)) {
     cout << "\nInput string is accepted!\n";
   } else {
@@ -233,30 +234,28 @@ void PDA::start(string inputString) {
 }
 
 
-void PDA::printStack(stack<Symbol>& stack) {
-  /*stack<Symbol> auxStack = stack;
-  for (int i = 0; i < stack.size(); i++) {
-    cout << auxStack.top().getIdentifierSymbol() << " ";
-    auxStack.pop();
-  }*/
-}
-
-
 bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack) {
-  // cout << "conjunto de estados size " << states_.size() << endl;
   auto current = find(states_.begin(), states_.end(), currentState);
-  cout << "Current state: " << current->getIdentifier() << " Tape: " << symbol; //printStack(stack);
   if ((headerPos >= symbol.length()) && (current->isAcceptation())) {
     return true;
   }
   vector<Transition> possibleTransitions = current->getTransitions();
   for (auto transition: possibleTransitions) {
-    transition.printTransition();
     if (transition.isPossibleToTransit(string(1, symbol[headerPos]), stack.top())) {
-      // Mostrar traza
-      cout << "\nTape header: " << symbol.substr(headerPos) << endl;
+      auxStack_ = stack;
+      cout << transition.getCurrentState() << setw(40);
+      cout << symbol.substr(headerPos) << setw(25);
+      while (!auxStack_.empty()) {
+        cout << auxStack_.top().getSymbol() << " ";
+        auxStack_.pop();
+      }
+      cout << setw(40) << transition.getNextState() << setw(30);
+      for (auto symbol : transition.getSymbolsToIntroduce()) {
+        cout << symbol.getSymbol() << " ";
+      }
+      cout << endl;
+
       // Stack control
-      cout << "Top " << stack.top().getSymbol();
       this->stack_ = stack;
       this->stack_.pop();
       int symbolsAmount = transition.getSymbolsToIntroduce().size();

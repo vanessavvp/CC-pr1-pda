@@ -87,10 +87,10 @@ void Transition::printTransition() {
 bool Transition::isPossibleToTransit(string symbolToRead, Symbol topStackSymbol) {
   if (((symbolToRead == this->symbolToRead_.getSymbol()) || (symbolToRead_.getSymbol() == ".")) &&
       (topStackSymbol == this->topStackSymbol_)) {
-    cout << "Is possible to transit!\n";
+    // cout << "Is possible to transit!\n";
     return true;
   }
-  cout << "Is not possible to transit!\n";
+  // cout << "Is not possible to transit!\n";
   return false;
 }
 

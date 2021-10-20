@@ -16,12 +16,23 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-  cout << "\n\tPushdown Automata" << endl;
+  cout << "\n\tPushdown Automata -> Acceptance by final state" << endl;
   try {
-    string inputFileName = argv[1];
-    PDA PDA(inputFileName);
-    string inputString = "1001";
-    PDA.start(inputString); 
+    string inputFileName, inputString, menuRepeated;
+    do {
+      cout << "\nPlease, introduce the input file path of the automata formal definition: ";
+      cin >> inputFileName;
+      cout << "Enter the input string for the automata: ";
+      cin >> inputString;
+
+      PDA PDA(inputFileName);
+      PDA.start(inputString);
+
+      cout << "\nDo you want to repeat the process [y/n]: ";
+      cin >> menuRepeated;
+    } while ((menuRepeated == "y") || (menuRepeated == "Y"));
+    
+     
   } catch(const string error) {
     cerr << error << endl;
   }
