@@ -32,9 +32,9 @@ State::State(string identifier, bool isAcceptation, bool isInitial) {
 }
 
 
-/*State* State::getState() const {
-  return state_;
-}*/
+void State::setIdentifier(string identifier) {
+  identifier_ = identifier;
+}
 
 
 string State::getIdentifier() const {
@@ -47,12 +47,12 @@ vector<Transition> State::getTransitions() const {
 }
 
 
-bool State::getIsAcceptation() const {
+bool State::isAcceptation() const {
   return isAcceptation_;
 }
 
 
-bool State::getIsInitial() const {
+bool State::isInitial() const {
   return isInitial_;
 }
 

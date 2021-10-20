@@ -18,7 +18,7 @@ PDA::PDA(string inputFileName) {
 
 void PDA::printStates() {
   for (auto state : states_)
-    cout << "State -> " << state.getIdentifier() << " Initial:" << state.getIsInitial() << " Acceptation:" << state.getIsAcceptation() << endl;
+    cout << "State -> " << state.getIdentifier() << " Initial:" << state.isInitial() << " Acceptation:" << state.isAcceptation() << endl;
   cout << endl;
 }
 
@@ -113,6 +113,7 @@ void PDA::readFile(string inputFileName) {
       for (auto &state : states) {
         if (state.getIdentifier() == lineInfo) {
           state.setInitial(true);
+          this->currentState_ = &(state);
         }
       }
     } else {
@@ -157,7 +158,7 @@ void PDA::readFile(string inputFileName) {
 
       // Current state
       ss >> token;
-      cout << token << " ";
+      // cout << token << " ";
       State state(token);
       vector<State>::iterator it = find(states.begin(), states.end(), state);
       if (it != states.end()) {
@@ -169,17 +170,17 @@ void PDA::readFile(string inputFileName) {
 
       // Input symbol
       ss >> token;
-      cout << token << " ";
+      // cout << token << " ";
       transition.setSymbolToRead(token);
 
       // Stack top
       ss >> token;
-      cout << token << " ";
+      // cout << token << " ";
       transition.setTopStackSymbol(token);
 
       // Next State
       ss >> token;
-      cout << token << " ";
+      // cout << token << " ";
       State nextState(token);
       it = find(states.begin(), states.end(), nextState);
       if (it != states.end()) {
@@ -192,20 +193,38 @@ void PDA::readFile(string inputFileName) {
       // Stack Input
       vector<Symbol> inputSymbols;
       while (ss >> token) {
-        cout << token << " ";
+        // cout << token << " ";
         Symbol symbol(token);
         inputSymbols.push_back(token);
       }
       transition.setSymbolsToIntroduce(inputSymbols);
-      cout << endl;
+      // cout << endl;
       getline(file, lineInfo);
 
       // Including transitions to a state
-      //cout << "aqui " << transition.getCurrentState()->getIdentifier() << endl;
       it = find(states.begin(), states.end(), State(transition.getCurrentState()->getIdentifier()));
       if (it != states.end()) {
         (*it).addTransition(transition);
       }
+      this->states_.insert(*it);
     }
   }
+}
+
+
+void PDA::start(string inputString) {
+  int headerPos = 0;
+  /*if (recursiveStart(inputString, headerPos, &(currentState_), stack_)) {
+    cout << "Input string is accepted!\n";
+  } else {
+    cout << "Input string is rejected!\n";
+  }*/
+}
+
+
+bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack) {
+  if ((headerPos >= symbol.length()) && (currentState.isAcceptation())) {
+    return true;
+  }
+  return false;
 }

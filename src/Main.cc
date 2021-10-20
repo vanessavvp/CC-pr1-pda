@@ -20,7 +20,9 @@ int main(int argc, char* argv[]) {
   try {
     string inputFileName = argv[1];
     PDA PDA(inputFileName);
-  } catch(const string e) {
-    cerr << e << endl;
+    string inputString = "ab";
+    PDA.start(inputString); 
+  } catch(const string error) {
+    cerr << error << endl;
   }
 }

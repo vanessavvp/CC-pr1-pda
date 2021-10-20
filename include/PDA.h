@@ -37,6 +37,8 @@ class PDA {
     void setTapeAlphabet(string lineInfo);
     void setStackAlphabet(string lineInfo);
     bool hasState(string stateIdentifier, vector<State> states);
+    void start(string inputString);
+    bool recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack);
 
   private:
     set<State> states_;

@@ -30,9 +30,10 @@ class State {
     State(string identifier);
     State(string identifier, bool isAcceptation, bool isInitial);
     string getIdentifier() const;
-    bool getIsAcceptation() const;
-    bool getIsInitial() const;
+    bool isAcceptation() const;
+    bool isInitial() const;
     vector<Transition> getTransitions() const;
+    void setIdentifier(string identifier);
     void setAcceptation(bool isAcceptation);
     void setInitial(bool isInitial);
     void setTransitions(vector<Transition>& transitions);
