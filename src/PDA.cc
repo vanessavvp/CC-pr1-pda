@@ -211,21 +211,14 @@ void PDA::readFile(string inputFileName) {
     for (auto state: states) {
       auto it = find(states.begin(), states.end(), state);
       this->states_.insert(*it);
-      // cout << "Estado " << state.getIdentifier() << endl;
     }
-    /*for (auto state: states_) {
-      vector<Transition> transitions = state.getTransitions();
-      for (auto transition: transitions) {
-        transition.printTransition();
-      }
-    }*/
   }
 }
 
 
 void PDA::start(string inputString) {
   int headerPos = 0;
-  cout << "\nCurrent state" << setw(30) << "Tape string" << setw(30) << "Stack top" << setw(30) << "Next State" << setw(30) << "Stack input" << endl;
+  cout << "\nCurrent state" << setw(25) << "Tape string" << setw(30) << "Stack top" << setw(30) << "Next State" << setw(30) << "Stack input" << endl;
   if (recursiveStart(inputString, headerPos, currentState_, stack_)) {
     cout << "\nInput string is accepted!\n";
   } else {
@@ -243,7 +236,7 @@ bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stac
   for (auto transition: possibleTransitions) {
     if (transition.isPossibleToTransit(string(1, symbol[headerPos]), stack.top())) {
       auxStack_ = stack;
-      cout << transition.getCurrentState() << setw(40);
+      cout << transition.getCurrentState() << setw(30);
       cout << symbol.substr(headerPos) << setw(25);
       while (!auxStack_.empty()) {
         cout << auxStack_.top().getSymbol() << " ";
