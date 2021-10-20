@@ -45,7 +45,6 @@ class PDA {
     State* currentState_;
     Symbol initialStackSymbol_;
     stack<Symbol> stack_;
-    set<State> acceptationStates_;
 };
 
 #endif // PDA_H

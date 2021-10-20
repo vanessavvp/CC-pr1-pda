@@ -139,14 +139,13 @@ void PDA::readFile(string inputFileName) {
           if (state.getIdentifier() == token) { 
             state.setAcceptation(true);
           }
-          this->states_.insert(state);
+          // this->states_.insert(state);
         }
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
       }
     }
-    this->printStates();
     
 
     // Transitions
@@ -160,8 +159,8 @@ void PDA::readFile(string inputFileName) {
       ss >> token;
       cout << token << " ";
       State state(token);
-      auto it = find(this->states_.begin(), this->states_.end(), state);
-      if (it != this->states_.end()) {
+      vector<State>::iterator it = find(states.begin(), states.end(), state);
+      if (it != states.end()) {
         transition.setCurrentState(state);
       } else {
         error = "The readed state is not part of the PDA's states\n";
@@ -182,9 +181,9 @@ void PDA::readFile(string inputFileName) {
       ss >> token;
       cout << token << " ";
       State nextState(token);
-      it = find(this->states_.begin(), this->states_.end(), nextState);
-      if (it != this->states_.end()) {
-        transition.setCurrentState(nextState);
+      it = find(states.begin(), states.end(), nextState);
+      if (it != states.end()) {
+        transition.setNextState(nextState);
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
@@ -200,6 +199,13 @@ void PDA::readFile(string inputFileName) {
       transition.setSymbolsToIntroduce(inputSymbols);
       cout << endl;
       getline(file, lineInfo);
+
+      // Including transitions to a state
+      //cout << "aqui " << transition.getCurrentState()->getIdentifier() << endl;
+      it = find(states.begin(), states.end(), State(transition.getCurrentState()->getIdentifier()));
+      if (it != states.end()) {
+        (*it).addTransition(transition);
+      }
     }
   }
 }

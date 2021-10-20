@@ -42,9 +42,9 @@ string State::getIdentifier() const {
 }
 
 
-/*vector<Transition> State::getTransitions() const {
+vector<Transition> State::getTransitions() const {
   return transitions_;
-}*/
+}
 
 
 bool State::getIsAcceptation() const {
@@ -55,11 +55,6 @@ bool State::getIsAcceptation() const {
 bool State::getIsInitial() const {
   return isInitial_;
 }
-
-
-/*void State::setState(State* state) {
-  state_ = state;
-}*/
 
 
 void State::setAcceptation(bool isAcceptation) {
