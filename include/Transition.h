@@ -36,6 +36,7 @@ class Transition {
     Symbol getTopStackSymbol();
     State* getNextState();
     vector<Symbol> getSymbolsToIntroduce();
+    void printTransition();
 
   private:
     State* currentState_;

@@ -150,6 +150,7 @@ void PDA::readFile(string inputFileName) {
     
 
     // Transitions
+    vector<string> tempStack;
     Transition transition;
     getline(file, lineInfo);
     while (!lineInfo.empty()) {
@@ -159,27 +160,51 @@ void PDA::readFile(string inputFileName) {
       ss >> token;
       cout << token << " ";
       State* state = new State(token);
-      auto it = this->states_.find(state);
+      if (this->hasState(token, states)) {
+        transition.setCurrentState(state);
+      } else {
+        error = "The readed state is not part of the PDA's states\n";
+        throw error;
+      }
+      /*auto it = this->states_.find(state);
       // cout << "actual " << state->getIdentifier() << " viejo " << (*it)->getIdentifier();
       if (it != this->states_.end()) {
         transition.setCurrentState(state);
       } else {
         error = "The readed state is not part of the PDA's states\n";
         throw error;
-      }
+      }*/
 
       // Input symbol
       ss >> token;
       cout << token << " ";
+      transition.setSymbolToRead(token);
 
       // Stack top
       ss >> token;
       cout << token << " ";
+      transition.setTopStackSymbol(token);
 
-      stringstream elements(lineInfo); 
-      while (elements >> token) {
-        cout << token << " ";
+      // Next State
+      cout << " -> ";
+      ss >> token;
+      cout << token << " ";
+      State* nextState = new State(token);
+      if (this->hasState(token, states)) {
+        transition.setNextState(nextState);
+      } else {
+        error = "The readed state is not part of the PDA's states\n";
+        throw error;
       }
+
+      // Stack Input
+      vector<Symbol> inputSymbols;
+      while (ss >> token) {
+        cout << token << " ";
+        Symbol symbol(token);
+        inputSymbols.push_back(token);
+      }
+      transition.setSymbolsToIntroduce(inputSymbols);
       cout << endl;
       getline(file, lineInfo);
     }
