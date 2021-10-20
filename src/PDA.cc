@@ -234,24 +234,49 @@ void PDA::start(string inputString) {
 
 
 void PDA::printStack(stack<Symbol>& stack) {
-
+  /*stack<Symbol> auxStack = stack;
+  for (int i = 0; i < stack.size(); i++) {
+    cout << auxStack.top().getIdentifierSymbol() << " ";
+    auxStack.pop();
+  }*/
 }
 
 
 bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stack<Symbol> stack) {
   // cout << "conjunto de estados size " << states_.size() << endl;
   auto current = find(states_.begin(), states_.end(), currentState);
-  cout << "Current state: " << current->getIdentifier() << " Tape: " << symbol << " Stack: ";
+  cout << "Current state: " << current->getIdentifier() << " Tape: " << symbol; //printStack(stack);
   if ((headerPos >= symbol.length()) && (current->isAcceptation())) {
     return true;
   }
   vector<Transition> possibleTransitions = current->getTransitions();
   for (auto transition: possibleTransitions) {
-    //Symbol top(stack.top());
-    cout << "top " << stack.top().getSymbol() << endl;
     transition.printTransition();
     if (transition.isPossibleToTransit(string(1, symbol[headerPos]), stack.top())) {
-      // Cosas con la pila
+      // Mostrar traza
+      cout << "\nTape header: " << symbol.substr(headerPos) << endl;
+      // Stack control
+      cout << "Top " << stack.top().getSymbol();
+      this->stack_ = stack;
+      this->stack_.pop();
+      int symbolsAmount = transition.getSymbolsToIntroduce().size();
+      for (int i = symbolsAmount - 1; i >= 0; i--) {
+        Symbol newSymbol = transition.getSymbolsToIntroduce()[i];
+        if (newSymbol.getSymbol() != ".") {
+          this->stack_.push(newSymbol);
+        }
+      }
+      int nextHeaderPos = headerPos;
+      if (transition.getSymbolToRead().getSymbol() != ".") {
+        nextHeaderPos += 1;
+      }
+      State state(transition.getNextState());
+      auto nextState = (*(find(this->states_.begin(), this->states_.end(), state)));
+      if (recursiveStart(symbol, nextHeaderPos, nextState, this->stack_)) {
+        return true;
+      } else {
+        this->stack_ = stack;
+      }
     }
   }
   return false;

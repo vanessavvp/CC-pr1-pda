@@ -72,21 +72,21 @@ vector<Symbol> Transition::getSymbolsToIntroduce() {
 
 
 void Transition::printTransition() {
-  cout << "Current state: " << currentState_ << endl;
+  cout << "\nCurrent state: " << currentState_ << endl;
   cout << "Symbol to read: " << symbolToRead_.getSymbol() << endl;
   cout << "Top stack symbol: " << topStackSymbol_.getSymbol() << endl;
   cout << "Next state: " << nextState_ << endl;
-  cout << "Symbol to read: \n"; 
+  cout << "Symbol to read: "; 
   for (auto symbol : symbolsToIntroduce_) {
-    cout << " " << symbol.getSymbol() << endl;
+    cout << " " << symbol.getSymbol() << " ";
   }
   cout << endl;
 }
 
 
 bool Transition::isPossibleToTransit(string symbolToRead, Symbol topStackSymbol) {
-  if (((symbolToRead == this->symbolToRead_.getSymbol()) || (symbolToRead == ".")) &&
-      ((topStackSymbol == this->topStackSymbol_) || (topStackSymbol.getSymbol() == "."))) {
+  if (((symbolToRead == this->symbolToRead_.getSymbol()) || (symbolToRead_.getSymbol() == ".")) &&
+      (topStackSymbol == this->topStackSymbol_)) {
     cout << "Is possible to transit!\n";
     return true;
   }

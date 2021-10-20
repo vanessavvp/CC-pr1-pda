@@ -32,4 +32,4 @@ clean:
 	rm -rf ./obj/*.o
 
 run:
-	make -s && ./exe input/APf.txt
+	make -s && ./exe input/APf-2.txt
