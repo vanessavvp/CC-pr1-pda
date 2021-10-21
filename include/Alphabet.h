@@ -33,7 +33,6 @@ class Alphabet {
 
   private:
     set<Symbol> alphabet_;
-
 };
 
 #endif // ALPHABET_H
