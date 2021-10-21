@@ -218,7 +218,7 @@ void PDA::readFile(string inputFileName) {
 
 void PDA::start(string inputString) {
   int headerPos = 0;
-  cout << "\nCurrent state" << setw(25) << "Tape string" << setw(30) << "Stack top" << setw(30) << "Next State" << setw(30) << "Stack input" << endl;
+  cout << "\nCurrent state" << setw(25) << "\tTape string" << setw(30) << "\tStack content" << setw(45) << "\tNext State" << setw(30) << "\tStack input" << endl;
   if (recursiveStart(inputString, headerPos, currentState_, stack_)) {
     cout << "\nInput string is accepted!\n";
   } else {
@@ -236,13 +236,19 @@ bool PDA::recursiveStart(string symbol, int headerPos, State& currentState, stac
   for (auto transition: possibleTransitions) {
     if (transition.isPossibleToTransit(string(1, symbol[headerPos]), stack.top())) {
       auxStack_ = stack;
-      cout << transition.getCurrentState() << setw(30);
-      cout << symbol.substr(headerPos) << setw(25);
+
+      // Print trace
+      cout << transition.getCurrentState() << "\t" << setw(30);
+      if (symbol.substr(headerPos).empty()) {
+        cout << " .\t" << setw(25);
+      } else {
+        cout << symbol.substr(headerPos) << "\t" << setw(25);
+      }
       while (!auxStack_.empty()) {
         cout << auxStack_.top().getSymbol() << " ";
         auxStack_.pop();
       }
-      cout << setw(40) << transition.getNextState() << setw(30);
+      cout << " \t" << setw(45) << transition.getNextState() << "\t" << setw(30);
       for (auto symbol : transition.getSymbolsToIntroduce()) {
         cout << symbol.getSymbol() << " ";
       }
