@@ -78,7 +78,7 @@ void State::addTransition(Transition& transition) {
 
 
 bool State::operator<(State const& other) const {
-  if (other.identifier_ < this->identifier_) { 
+  if (this->identifier_ < other.identifier_ ) { 
     return true;
   }
   return false;

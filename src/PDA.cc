@@ -73,19 +73,17 @@ void PDA::readFile(string inputFileName) {
   string lineInfo;
   string error;
 
-  if (!file.is_open()) {
-    error = "\nERROR: The inputfile  " + inputFileName + " could not be opened\n";
+  if (file.fail()) {
+    error = "\nERROR: The inputfile  " + inputFileName + " failed!\n";
     throw error;
   } else {
     cout << "\tThe inputfile " << inputFileName << " was successfully readed...\n";
-
 
     // Comments control
     getline(file, lineInfo);
     while (this->isComment(lineInfo)) {
       getline(file, lineInfo);
     }
-
 
     // Auxiliar set of states
     string token;
@@ -141,7 +139,6 @@ void PDA::readFile(string inputFileName) {
           if (state.getIdentifier() == token) { 
             state.setAcceptation(true);
           }
-          // this->states_.insert(state);
         }
       } else {
         error = "The readed state is not part of the PDA's states\n";
@@ -153,8 +150,9 @@ void PDA::readFile(string inputFileName) {
     // Transitions
     vector<string> tempStack;
     Transition transition;
-    getline(file, lineInfo);
-    while (!lineInfo.empty()) {
+    //  getline(file, lineInfo);
+    while(getline(file, lineInfo)) {
+    //while (!lineInfo.empty()) {
       stringstream ss(lineInfo); 
 
       // Current state
@@ -193,14 +191,16 @@ void PDA::readFile(string inputFileName) {
 
       // Stack Input
       vector<Symbol> inputSymbols;
-      while (ss >> token) {
-        // cout << token << " ";
-        Symbol symbol(token);
-        inputSymbols.push_back(token);
+      while (getline(ss, token)) {
+          // cout << token << " ";
+          istringstream line(token);
+          string str;
+          while (line >> str) {
+            Symbol symbol(str);
+            inputSymbols.push_back(str);
+        }  
       }
       transition.setSymbolsToIntroduce(inputSymbols);
-      // cout << endl;
-      getline(file, lineInfo);
 
       // Including transitions to a state
       it = find(states.begin(), states.end(), State(transition.getCurrentState()));

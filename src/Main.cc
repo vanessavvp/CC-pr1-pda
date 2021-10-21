@@ -19,9 +19,9 @@ int main(int argc, char* argv[]) {
   cout << "\n\tPushdown Automata -> Acceptance by final state" << endl;
   try {
     string inputFileName, inputString, menuRepeated;
+    cout << "\nPlease, introduce the input file path of the automata formal definition: ";
+    cin >> inputFileName;
     do {
-      cout << "\nPlease, introduce the input file path of the automata formal definition: ";
-      cin >> inputFileName;
       cout << "Enter the input string for the automata: ";
       cin >> inputString;
 
